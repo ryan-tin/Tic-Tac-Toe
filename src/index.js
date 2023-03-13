@@ -104,6 +104,8 @@ class Game extends React.Component {
       let status;
       if (winner) {
           status = 'Winner: ' + winner;
+      } else if ( calculateDraw(current.squares) ) {
+          status = 'Draw'
       } else {
           status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
       }
@@ -148,6 +150,18 @@ function calculateWinner(squares) {
         }
     }
     return null;
+}
+
+/*
+ * if all cells are full and there is no winner, then its a draw
+ */
+function calculateDraw(squares) {
+    for (let i = 0; i < squares.length; i++) {
+        if (squares[i] === null) {
+            return null
+        };
+    }
+    return true;
 }
 
 function moveCoord(square) {
